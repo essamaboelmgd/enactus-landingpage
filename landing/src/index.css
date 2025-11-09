@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enactus Design System - Dark Theme with Yellow Accents */
+
+@layer base {
+  :root {
+    /* Dark theme colors */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Enactus Yellow - Primary */
+    --primary: 48 100% 50%;
+    --primary-foreground: 0 0% 10%;
+
+    /* Secondary dark surfaces */
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 48 100% 50%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 48 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom Enactus tokens */
+    --enactus-yellow: 48 100% 50%;
+    --enactus-dark: 0 0% 8%;
+    --enactus-card: 0 0% 12%;
+    --enactus-card-hover: 0 0% 16%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 8% / 0.95), hsl(0 0% 4% / 0.98));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 12%), hsl(0 0% 10%));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.4);
+    --shadow-card-hover: 0 8px 30px hsl(0 0% 0% / 0.6);
+    --shadow-yellow: 0 0 30px hsl(48 100% 50% / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(255,215,0,0.3)];
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
