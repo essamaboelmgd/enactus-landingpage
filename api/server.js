@@ -1,11 +1,12 @@
-// Load environment variables first
-require('dotenv').config();
-
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const formRoutes = require('./routes/formRoutes');
 const User = require('./models/User');
+
+// Load environment variables
+dotenv.config();
 
 // Initialize express app
 const app = express();
