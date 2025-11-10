@@ -272,8 +272,8 @@ const FormData = () => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge className={item.paymentMethod === 'cash' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}>
-                      {item.paymentMethod === 'cash' ? 'Cash' : 'Vodafone Cash'}
+                    <Badge className={item.paymentMethod === 'cash' || !item.paymentMethod ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}>
+                      {item.paymentMethod === 'cash' || !item.paymentMethod ? 'Cash' : 'Vodafone Cash'}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">

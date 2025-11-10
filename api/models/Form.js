@@ -19,7 +19,8 @@ const formSchema = new mongoose.Schema({
   },
   paymentMethod: {
     type: String,
-    required: true
+    required: false, // Make it optional
+    default: 'cash' // Default to 'cash'
   },
   imageUrl: {
     type: String,

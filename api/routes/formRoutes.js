@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
       phone,
       committee,
       membershipType,
-      paymentMethod,
+      paymentMethod: paymentMethod || 'cash', // Default to 'cash' if not provided
       imageUrl: req.file ? req.file.path : null
     });
 
@@ -106,7 +106,7 @@ router.get('/export', async (req, res) => {
         `"${form.committee}"`,
         form.membershipType === 'new' ? 'New Member' : 
         form.membershipType === 'old' ? 'Old Member' : 'Other',
-        form.paymentMethod === 'cash' ? 'Cash' : 'Vodafone Cash',
+        form.paymentMethod === 'cash' ? 'Cash' : form.paymentMethod === 'vodafone' ? 'Vodafone Cash' : 'Cash', // Handle missing paymentMethod
         new Date(form.createdAt).toISOString().slice(0, 10),
         form.imageUrl || 'No image'
       ].join(',') + '\n';

@@ -50,9 +50,10 @@ const Contact = () => {
       formDataToSend.append('phone', formData.phone);
       formDataToSend.append('committee', formData.committee);
       formDataToSend.append('membershipType', formData.membershipType);
+      formDataToSend.append('paymentMethod', formData.paymentMethod || 'cash'); // Ensure paymentMethod is always sent
       
-      // Add payment proof if exists
-      if (paymentProof) {
+      // Add payment proof if exists and payment method is vodafone
+      if (paymentProof && formData.paymentMethod === 'vodafone') {
         formDataToSend.append('image', paymentProof);
       }
 
