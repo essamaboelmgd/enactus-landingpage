@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
     console.log('Received form data:', req.body);
     console.log('Received file:', req.file);
     
-    const { fullName, phone, committee, membershipType } = req.body;
+    const { fullName, phone, committee, membershipType, paymentMethod } = req.body;
     
     // Create new form entry
     const newForm = new Form({
@@ -31,6 +31,7 @@ router.post('/', (req, res, next) => {
       phone,
       committee,
       membershipType,
+      paymentMethod,
       imageUrl: req.file ? req.file.path : null
     });
 
@@ -93,7 +94,7 @@ router.get('/export', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="enactus_form_data_${new Date().toISOString().slice(0, 10)}.csv"`);
     
     // Create CSV header
-    const csvHeader = 'ID,Full Name,Phone,Committee,Membership Type,Created At,Payment Image URL\n';
+    const csvHeader = 'ID,Full Name,Phone,Committee,Membership Type,Payment Method,Created At,Payment Image URL\n';
     res.write(csvHeader);
     
     // Add data rows
@@ -105,6 +106,7 @@ router.get('/export', async (req, res) => {
         `"${form.committee}"`,
         form.membershipType === 'new' ? 'New Member' : 
         form.membershipType === 'old' ? 'Old Member' : 'Other',
+        form.paymentMethod === 'cash' ? 'Cash' : 'Vodafone Cash',
         new Date(form.createdAt).toISOString().slice(0, 10),
         form.imageUrl || 'No image'
       ].join(',') + '\n';

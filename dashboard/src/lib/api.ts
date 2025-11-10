@@ -7,6 +7,7 @@ export interface FormEntry {
   phone: string;
   committee: string;
   membershipType: string;
+  paymentMethod: string; // Add this new field
   imageUrl: string | null;
   createdAt: string;
   updatedAt: string;

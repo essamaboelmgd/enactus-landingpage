@@ -240,6 +240,7 @@ const FormData = () => {
               <TableHead className="font-semibold">Phone</TableHead>
               <TableHead className="font-semibold">Committee</TableHead>
               <TableHead className="font-semibold">Membership Type</TableHead>
+              <TableHead className="font-semibold">Payment Method</TableHead>
               <TableHead className="font-semibold">Date</TableHead>
               <TableHead className="font-semibold">Payment Image</TableHead>
               <TableHead className="font-semibold text-right">Actions</TableHead>
@@ -268,6 +269,11 @@ const FormData = () => {
                     <Badge className={getMembershipBadgeColor(item.membershipType)}>
                       {item.membershipType === 'new' ? 'New Member' : 
                        item.membershipType === 'old' ? 'Old Member' : 'Other'}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge className={item.paymentMethod === 'cash' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}>
+                      {item.paymentMethod === 'cash' ? 'Cash' : 'Vodafone Cash'}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">

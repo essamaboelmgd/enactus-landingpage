@@ -20,6 +20,7 @@ const Contact = () => {
     phone: '',
     committee: '',
     membershipType: '',
+    paymentMethod: '',
   });
   const [paymentProof, setPaymentProof] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -76,6 +77,7 @@ const Contact = () => {
           phone: '',
           committee: '',
           membershipType: '',
+          paymentMethod: '',
         });
         setPaymentProof(null);
         setPreviewUrl(null);
@@ -202,60 +204,89 @@ const Contact = () => {
                 </Select>
               </div>
 
-              {/* Payment Proof Upload */}
-              {/* Payment Information */}
-              <div className="bg-primary/5 border border-primary/10 rounded-lg p-4 mb-6">
-                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">Payment Information</h3>
-                <p className="text-muted-foreground text-sm mb-3">
-                  Please pay the orientation fee to complete your registration
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1">
-                    <p className="text-foreground font-medium">Amount:</p>
-                    <p className="text-lg font-bold text-primary">100 EGP</p>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-foreground font-medium">Vodafone Cash:</p>
-                    <p className="text-lg font-bold text-primary">01065759699</p>
+              {/* Payment Method */}
+              <div className="space-y-2">
+                <Label htmlFor="paymentMethod" className="text-foreground font-medium">
+                  Payment Method <span className="text-primary">*</span>
+                </Label>
+                <Select
+                  required
+                  value={formData.paymentMethod}
+                  onValueChange={(value) => setFormData({ ...formData, paymentMethod: value })}
+                >
+                  <SelectTrigger className="bg-background border-border focus:border-primary transition-colors duration-300">
+                    <SelectValue placeholder="Select payment method" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border-border">
+                    <SelectItem value="cash" className="focus:bg-primary/10">
+                      Cash
+                    </SelectItem>
+                    <SelectItem value="vodafone" className="focus:bg-primary/10">
+                      Vodafone Cash
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Payment Information (conditional) */}
+              {formData.paymentMethod === 'vodafone' && (
+                <div className="bg-primary/5 border border-primary/10 rounded-lg p-4 mb-6">
+                  <h3 className="font-heading font-semibold text-lg mb-2 text-primary">Vodafone Cash Payment</h3>
+                  <p className="text-muted-foreground text-sm mb-3">
+                    Please pay the orientation fee to complete your registration
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                      <p className="text-foreground font-medium">Amount:</p>
+                      <p className="text-lg font-bold text-primary">100 EGP</p>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-foreground font-medium">Vodafone Cash:</p>
+                      <p className="text-lg font-bold text-primary">01065759699</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="paymentProof" className="text-foreground font-medium">
-                  Payment Proof <span className="text-primary">*</span>
-                </Label>
-                <div className="flex items-center space-x-4">
-                  <label className="flex-1 cursor-pointer">
-                    <div className="flex items-center justify-center px-4 py-6 bg-background border-2 border-dashed border-border rounded-lg hover:border-primary transition-colors duration-300">
-                      <div className="text-center">
-                        <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          {paymentProof ? paymentProof.name : 'Click to upload payment proof'}
-                        </p>
+              )}
+
+              {/* Payment Proof Upload (conditional) */}
+              {formData.paymentMethod === 'vodafone' && (
+                <div className="space-y-2">
+                  <Label htmlFor="paymentProof" className="text-foreground font-medium">
+                    Payment Proof <span className="text-primary">*</span>
+                  </Label>
+                  <div className="flex items-center space-x-4">
+                    <label className="flex-1 cursor-pointer">
+                      <div className="flex items-center justify-center px-4 py-6 bg-background border-2 border-dashed border-border rounded-lg hover:border-primary transition-colors duration-300">
+                        <div className="text-center">
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            {paymentProof ? paymentProof.name : 'Click to upload payment proof'}
+                          </p>
+                        </div>
+                        <Input
+                          id="paymentProof"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="hidden"
+                          required={formData.paymentMethod === 'vodafone'}
+                        />
                       </div>
-                      <Input
-                        id="paymentProof"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        className="hidden"
-                        required
+                    </label>
+                  </div>
+                  
+                  {/* Image Preview */}
+                  {previewUrl && (
+                    <div className="mt-4">
+                      <img 
+                        src={previewUrl} 
+                        alt="Payment proof preview" 
+                        className="max-h-40 rounded-lg object-contain"
                       />
                     </div>
-                  </label>
+                  )}
                 </div>
-                
-                {/* Image Preview */}
-                {previewUrl && (
-                  <div className="mt-4">
-                    <img 
-                      src={previewUrl} 
-                      alt="Payment proof preview" 
-                      className="max-h-40 rounded-lg object-contain"
-                    />
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* Submit Button */}
               <Button
