@@ -2,6 +2,9 @@ const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('./cloudinary');
 
+// Debug: Log Cloudinary config
+console.log('Cloudinary Config in Multer:', cloudinary.config());
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -10,6 +13,11 @@ const storage = new CloudinaryStorage({
   }
 });
 
-const parser = multer({ storage: storage });
+const parser = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  }
+});
 
 module.exports = parser;

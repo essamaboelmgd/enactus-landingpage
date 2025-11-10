@@ -4,8 +4,25 @@ const Form = require('../models/Form');
 const upload = require('../config/multer');
 
 // POST route to handle form submission with image upload
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', (req, res, next) => {
+  console.log('Starting file upload process');
+  upload.single('image')(req, res, (err) => {
+    if (err) {
+      console.error('Multer error:', err);
+      return res.status(500).json({
+        success: false,
+        message: 'Error during file upload',
+        error: err.message
+      });
+    }
+    console.log('File upload successful, proceeding to save form data');
+    next();
+  });
+}, async (req, res) => {
   try {
+    console.log('Received form data:', req.body);
+    console.log('Received file:', req.file);
+    
     const { fullName, phone, committee, membershipType } = req.body;
     
     // Create new form entry
@@ -28,7 +45,8 @@ router.post('/', upload.single('image'), async (req, res) => {
     console.error('Error saving form:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error while saving form data'
+      message: 'Server error while saving form data',
+      error: error.message
     });
   }
 });

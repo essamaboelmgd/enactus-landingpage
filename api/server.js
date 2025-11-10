@@ -1,12 +1,12 @@
+// Load environment variables
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const multer = require('multer');
 const formRoutes = require('./routes/formRoutes');
 const User = require('./models/User');
-
-// Load environment variables
-dotenv.config();
 
 // Initialize express app
 const app = express();
@@ -14,7 +14,7 @@ const app = express();
 // Get allowed origins from environment variable or use defaults
 const allowedOrigins = process.env.FRONTEND_URL ? 
   process.env.FRONTEND_URL.split(',').map(url => url.trim()) : 
-  ['http://localhost:5173', 'http://localhost:8081'];
+  ['http://localhost:8080', 'http://localhost:8081'];
 
 // CORS configuration
 const corsOptions = {
@@ -35,6 +35,24 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Add error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({
+        success: false,
+        message: 'File size too large. Maximum file size is 5MB.'
+      });
+    }
+  }
+  res.status(500).json({
+    success: false,
+    message: 'An error occurred during file upload',
+    error: err.message
+  });
+});
 
 // Routes
 app.use('/api/form', formRoutes);
