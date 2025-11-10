@@ -14,7 +14,7 @@ const app = express();
 // Get allowed origins from environment variable or use defaults
 const allowedOrigins = process.env.FRONTEND_URL ? 
   process.env.FRONTEND_URL.split(',').map(url => url.trim()) : 
-  ['http://localhost:8080', 'http://localhost:8081'];
+  ['https://enactus-admin.vercel.app', 'https://enactus-ksu.vercel.app'];
 
 // CORS configuration
 const corsOptions = {
