@@ -103,7 +103,8 @@ router.get('/export', async (req, res) => {
         `"${form.fullName}"`,
         form.phone,
         `"${form.committee}"`,
-        form.membershipType === 'new' ? 'New Member' : 'Old Member',
+        form.membershipType === 'new' ? 'New Member' : 
+        form.membershipType === 'old' ? 'Old Member' : 'Other',
         new Date(form.createdAt).toISOString().slice(0, 10),
         form.imageUrl || 'No image'
       ].join(',') + '\n';
