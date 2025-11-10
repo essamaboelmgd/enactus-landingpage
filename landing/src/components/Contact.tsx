@@ -119,6 +119,7 @@ const Contact = () => {
 
           <div className="slide-up bg-card rounded-2xl p-8 border border-border/50 shadow-[var(--shadow-card)]">
             <form onSubmit={handleSubmit} className="space-y-6">
+
               {/* Full Name */}
               <div className="space-y-2">
                 <Label htmlFor="fullName" className="text-foreground font-medium">
@@ -194,11 +195,31 @@ const Contact = () => {
                     <SelectItem value="old" className="focus:bg-primary/10">
                       Old Member
                     </SelectItem>
+                    <SelectItem value="old" className="focus:bg-primary/10">
+                      Others
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               {/* Payment Proof Upload */}
+              {/* Payment Information */}
+              <div className="bg-primary/5 border border-primary/10 rounded-lg p-4 mb-6">
+                <h3 className="font-heading font-semibold text-lg mb-2 text-primary">Payment Information</h3>
+                <p className="text-muted-foreground text-sm mb-3">
+                  Please pay the orientation fee to complete your registration
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex-1">
+                    <p className="text-foreground font-medium">Amount:</p>
+                    <p className="text-lg font-bold text-primary">100 EGP</p>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-foreground font-medium">Vodafone Cash:</p>
+                    <p className="text-lg font-bold text-primary">01065759699</p>
+                  </div>
+                </div>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="paymentProof" className="text-foreground font-medium">
                   Payment Proof <span className="text-primary">*</span>
