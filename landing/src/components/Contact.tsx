@@ -195,8 +195,8 @@ const Contact = () => {
                     <SelectItem value="old" className="focus:bg-primary/10">
                       Old Member
                     </SelectItem>
-                    <SelectItem value="old" className="focus:bg-primary/10">
-                      Others
+                    <SelectItem value="other" className="focus:bg-primary/10">
+                      Other
                     </SelectItem>
                   </SelectContent>
                 </Select>
