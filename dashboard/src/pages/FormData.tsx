@@ -74,6 +74,8 @@ const FormData = () => {
         return "bg-primary text-primary-foreground";
       case "old":
         return "bg-secondary text-secondary-foreground";
+      case "other":
+        return "bg-accent text-accent-foreground";
       default:
         return "bg-muted text-muted-foreground";
     }
@@ -264,7 +266,8 @@ const FormData = () => {
                   <TableCell>{item.committee}</TableCell>
                   <TableCell>
                     <Badge className={getMembershipBadgeColor(item.membershipType)}>
-                      {item.membershipType === 'new' ? 'New Member' : 'Old Member'}
+                      {item.membershipType === 'new' ? 'New Member' : 
+                       item.membershipType === 'old' ? 'Old Member' : 'Other'}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">
