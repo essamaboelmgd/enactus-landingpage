@@ -198,9 +198,9 @@ const Contact = () => {
                     <SelectItem value="old" className="focus:bg-primary/10">
                       Old Member
                     </SelectItem>
-                    <SelectItem value="other" className="focus:bg-primary/10">
+                    {/* <SelectItem value="other" className="focus:bg-primary/10">
                       Other
-                    </SelectItem>
+                    </SelectItem> */}
                   </SelectContent>
                 </Select>
               </div>
